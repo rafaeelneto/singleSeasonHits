@@ -43,8 +43,11 @@
 </template>
 
 <script>
+import RangeFilterDialog from './FilterDialog/RangeFilterDialog.vue';
+
 export default {
   name: 'DataTable',
+  components: RangeFilterDialog,
   props: {
     data: {
       type: Array,

@@ -35,7 +35,6 @@ export default {
   },
   data() {
     return {
-      tableName: 'Nome da tabela',
       singleHitsData: [],
       fields: { ...defaultFields },
     };

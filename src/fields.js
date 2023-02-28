@@ -7,7 +7,7 @@ export const fields = {
     label: `Rank`,
     visible: true,
     sort: 'normal',
-    filter: true,
+    filter: 'range',
   },
   Player: {
     label: `Player's Name`,
@@ -16,13 +16,13 @@ export const fields = {
   AgeThatYear: {
     label: `Age that Year`,
     visible: true,
-    filter: true,
+    filter: 'range',
   },
   Hits: {
     label: `# Hits`,
     visible: true,
     sort: 'normal',
-    filter: true,
+    filter: 'range',
   },
   Year: {
     label: `Year`,
