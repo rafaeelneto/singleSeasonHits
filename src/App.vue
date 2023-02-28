@@ -1,6 +1,18 @@
 <template>
   <header class="header">
-    <h1>Singly Season Hits</h1>
+    <video
+      id="background-video"
+      autoplay
+      loop
+      muted
+      poster="./assets/baseball_hit_footage_poster.jpg"
+    >
+      <source src="./assets/baseball_hit_footage.webm" type="video/mp4" />
+    </video>
+    <div class="text-container">
+      <h1>Singly Season Hits</h1>
+      <h2>List of Single-Season Leaders & Records for Hits</h2>
+    </div>
   </header>
 
   <div class="content-wrapper">
@@ -18,6 +30,17 @@
       <DetailsComponent :data="selectedItem" />
     </aside>
   </div>
+  <footer>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+    <h1>fadsfaf</h1>
+  </footer>
 </template>
 
 <script>
@@ -115,34 +138,72 @@ export default {
   font-family: Lato, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   width: 100vw;
   height: 100vh;
+  position: relative;
 }
 
 .header {
-  height: 10%;
-  background-color: #a64327;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+#background-video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.text-container {
+  padding: 15px;
+}
+
+.header h1 {
+  color: white;
+  font-size: 42px;
+  text-transform: uppercase;
+  letter-spacing: 12px;
+  font-family: Chivo;
+  font-weight: bold;
+  text-align: left;
+}
+
+.header h2 {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.801);
+  text-transform: uppercase;
+  font-size: 22px;
+  font-family: Lato;
+  font-weight: 500;
+  text-align: left;
 }
 
 .content-wrapper {
   width: 100%;
   height: 80%;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: row;
 }
 
 .data-table-container {
-  width: 45%;
+  width: 55%;
   height: 100%;
   max-height: 100%;
   overflow-y: hidden;
 }
 
 .details-container {
-  width: 55%;
+  width: 45%;
   margin-left: 10px;
 }
 </style>

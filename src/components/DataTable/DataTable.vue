@@ -145,6 +145,7 @@ export default {
 table {
   border-collapse: collapse; /* make the table borders collapse to each other */
   width: 100%;
+  text-align: center;
 }
 
 thead {
