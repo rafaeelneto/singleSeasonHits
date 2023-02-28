@@ -1,28 +1,35 @@
 <template>
-  <table id="tableComponent" class="table table-bordered table-striped">
+  <div>
+    <RangeFilterDialog
+      :value="filterRange"
+      :filter="'id'"
+      @filter-change="updateFilter"
+    ></RangeFilterDialog>
+  </div>
+  <table id="tableComponent" class="">
     <thead>
       <tr>
         <!-- loop through each value of the fields to get the table header -->
         <th
-          v-for="(field, fieldName) in fields"
+          v-for="(field, fieldName) in visibleFilters"
           :key="fieldName"
           @click="sortByField(fieldName)"
         >
-          {{ field.label }}
+          {{ fields[fieldName].label }}
           <font-awesome-icon
-            v-if="field.sort === 'normal'"
+            v-if="fields[fieldName].sort === 'normal'"
             icon="fa-solid fa-sort"
           />
           <font-awesome-icon
-            v-else-if="field.sort === 'asc'"
+            v-else-if="fields[fieldName].sort === 'asc'"
             icon="fa-solid fa-sort-up"
           />
           <font-awesome-icon
-            v-else-if="field.sort === 'desc'"
+            v-else-if="fields[fieldName].sort === 'desc'"
             icon="fa-solid fa-sort-down"
           />
           <button
-            v-if="field.filter"
+            v-if="fields[fieldName].filter"
             class="button icon"
             v-on:click="(event) => filter(fieldName, event)"
           >
@@ -34,7 +41,7 @@
     <tbody>
       <!-- Loop through the list get the each student data -->
       <tr v-for="item in data" :key="item">
-        <td v-for="(field, fieldName) in fields" :key="fieldName">
+        <td v-for="(field, fieldName) in visibleFilters" :key="fieldName">
           {{ item[fieldName] }}
         </td>
       </tr>
@@ -43,11 +50,16 @@
 </template>
 
 <script>
-import RangeFilterDialog from './FilterDialog/RangeFilterDialog.vue';
+import RangeFilterDialog from './FilterDialogs/RangeFilterDialog.vue';
 
 export default {
   name: 'DataTable',
-  components: RangeFilterDialog,
+  components: { RangeFilterDialog },
+  data() {
+    return {
+      filterRange: [0, 100],
+    };
+  },
   props: {
     data: {
       type: Array,
@@ -66,6 +78,22 @@ export default {
     },
     sortByField(fieldName) {
       this.$emit('sort-by-field', fieldName);
+    },
+    updateFilter({ fieldName, value }) {
+      console.log({ fieldName, value });
+      this.filterRange = value;
+    },
+  },
+  computed: {
+    visibleFilters() {
+      const vFilter = {};
+      for (const fieldName in this.fields) {
+        const isFieldVisible = this.fields[fieldName].visible;
+        if (isFieldVisible) {
+          vFilter[fieldName] = isFieldVisible;
+        }
+      }
+      return vFilter;
     },
   },
 };

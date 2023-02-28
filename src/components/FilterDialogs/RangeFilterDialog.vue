@@ -1,5 +1,10 @@
 <template>
-  <vue-slider v-model="value"></vue-slider>
+  <vue-slider
+    :modelValue="value"
+    @update:modelValue="(newValue) => onChangeSlider(fieldName, newValue)"
+  ></vue-slider>
+  <h1>{{ value }}</h1>
+  <h1>{{ fieldName }}</h1>
 </template>
 <script>
 import VueSlider from 'vue-slider-component';
@@ -14,9 +19,18 @@ export default {
     value: {
       type: Array,
     },
+    fieldName: {
+      type: String,
+    },
     open: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    onChangeSlider(fieldName, value) {
+      console.log('aqui');
+      this.$emit('filter-change', { fieldName, value });
     },
   },
 };
