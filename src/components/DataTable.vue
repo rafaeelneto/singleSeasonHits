@@ -6,10 +6,28 @@
         <th
           v-for="(field, fieldName) in fields"
           :key="fieldName"
-          @click="sortTable(field)"
+          @click="sortByField(fieldName)"
         >
           {{ field.label }}
-          <i class="bi bi-sort-alpha-down" aria-label="Sort Icon"></i>
+          <font-awesome-icon
+            v-if="field.sort === 'normal'"
+            icon="fa-solid fa-sort"
+          />
+          <font-awesome-icon
+            v-else-if="field.sort === 'asc'"
+            icon="fa-solid fa-sort-up"
+          />
+          <font-awesome-icon
+            v-else-if="field.sort === 'desc'"
+            icon="fa-solid fa-sort-down"
+          />
+          <button
+            v-if="field.filter"
+            class="button icon"
+            v-on:click="(event) => filter(fieldName, event)"
+          >
+            <font-awesome-icon icon="fa-solid fa-filter" />
+          </button>
         </th>
       </tr>
     </thead>
@@ -28,7 +46,7 @@
 export default {
   name: 'DataTable',
   props: {
-    initialData: {
+    data: {
       type: Array,
     },
     fields: {
@@ -36,11 +54,23 @@ export default {
       default: () => ({}),
     },
   },
-
-  data() {
-    return {
-      data: this.initialData,
-    };
+  methods: {
+    filter(fieldName, e) {
+      if (e) {
+        e.stopPropagation();
+      }
+      // open filter box
+    },
+    sortByField(fieldName) {
+      this.$emit('sort-by-field', fieldName);
+    },
   },
 };
 </script>
+
+<style>
+.button {
+  height: 20px;
+  width: 20px;
+}
+</style>

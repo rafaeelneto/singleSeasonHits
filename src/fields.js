@@ -1,7 +1,13 @@
 export const fields = {
+  id: {
+    label: `ID`,
+    sort: 'desc',
+  },
   Rank: {
     label: `Rank`,
     visible: true,
+    sort: 'normal',
+    filter: true,
   },
   Player: {
     label: `Player's Name`,
@@ -10,21 +16,20 @@ export const fields = {
   AgeThatYear: {
     label: `Age that Year`,
     visible: true,
+    filter: true,
   },
   Hits: {
     label: `# Hits`,
     visible: true,
+    sort: 'normal',
+    filter: true,
   },
   Year: {
     label: `Year`,
-    visible: true,
+    visible: false,
   },
   Bats: {
     label: `Bats`,
-    visible: true,
-  },
-  id: {
-    label: `ID`,
     visible: false,
   },
 };
