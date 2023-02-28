@@ -2,9 +2,10 @@
   <vue-slider
     :modelValue="value"
     @update:modelValue="(newValue) => onChangeSlider(fieldName, newValue)"
+    :min="min"
+    :max="max"
   ></vue-slider>
   <h1>{{ value }}</h1>
-  <h1>{{ fieldName }}</h1>
 </template>
 <script>
 import VueSlider from 'vue-slider-component';
@@ -22,15 +23,17 @@ export default {
     fieldName: {
       type: String,
     },
-    open: {
-      type: Boolean,
-      default: false,
+    min: {
+      type: Number,
+    },
+    max: {
+      type: Number,
     },
   },
+  emits: ['filter-change'],
   methods: {
-    onChangeSlider(fieldName, value) {
-      console.log('aqui');
-      this.$emit('filter-change', { fieldName, value });
+    onChangeSlider(fieldName, newValue) {
+      this.$emit('filter-change', { fieldName, newValue });
     },
   },
 };
