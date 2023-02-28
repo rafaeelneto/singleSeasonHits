@@ -8,38 +8,46 @@
             :key="fieldName"
             @click="sortByField(fieldName)"
           >
-            <vue-feather
-              v-if="fields[fieldName].sort === 'normal'"
-              type="bar-chart-2"
-            />
-            <vue-feather
-              v-else-if="fields[fieldName].sort === 'asc'"
-              type="arrow-up"
-            />
-            <vue-feather
-              v-else-if="fields[fieldName].sort === 'desc'"
-              type="arrow-down"
-            />
-            {{ fields[fieldName].label }}
+            <div class="head-cell-container">
+              <div class="sort-icon-container">
+                <vue-feather
+                  v-if="fields[fieldName].sort === 'normal'"
+                  type="bar-chart-2"
+                />
+                <vue-feather
+                  v-else-if="fields[fieldName].sort === 'asc'"
+                  type="arrow-up"
+                />
+                <vue-feather
+                  v-else-if="fields[fieldName].sort === 'desc'"
+                  type="arrow-down"
+                />
+              </div>
+              <div class="text-property">{{ fields[fieldName].label }}</div>
 
-            <button
-              v-if="fields[fieldName].filter"
-              class="button icon"
-              v-on:click="(event) => openFilterDialog(fieldName, event)"
-            >
-              <vue-feather
-                type="filter"
-                :fill="fields[fieldName].filter?.active ? 'black' : 'none'"
-              ></vue-feather>
-            </button>
-            <RangeFilterDialog
+              <button
+                v-if="fields[fieldName].filter"
+                class="icon-button"
+                v-on:click="(event) => openFilterDialog(fieldName, event)"
+              >
+                <vue-feather
+                  type="filter"
+                  :fill="fields[fieldName].filter?.active ? 'black' : 'none'"
+                ></vue-feather>
+              </button>
+            </div>
+            <div
+              class="filter-container"
               v-if="fields[fieldName].filter?.active"
-              :value="fields[fieldName].filter.value"
-              :fieldName="fieldName"
-              @filter-change="updateFilter"
-              :min="fields[fieldName].filter.default[0]"
-              :max="fields[fieldName].filter.default[1]"
-            ></RangeFilterDialog>
+            >
+              <RangeFilterDialog
+                :value="fields[fieldName].filter.value"
+                :fieldName="fieldName"
+                @filter-change="updateFilter"
+                :min="fields[fieldName].filter.default[0]"
+                :max="fields[fieldName].filter.default[1]"
+              ></RangeFilterDialog>
+            </div>
           </th>
         </tr>
       </thead>
@@ -131,9 +139,11 @@ export default {
 </script>
 
 <style>
-.button {
+.icon-button {
   height: 30px;
   width: 30px;
+  background: white;
+  border: none;
 }
 
 .table-container {
@@ -164,13 +174,41 @@ table td {
   padding: 5px;
 }
 
+th .head-cell-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.head-cell-container span {
+  display: block;
+  line-height: normal;
+}
 thead th {
   font-family: Lato;
   font-weight: bold;
   font-size: 18px;
-  color: #fa4251;
-  line-height: 1.4;
+  color: #e03a48;
   background-color: transparent;
+}
+
+thead th:hover {
+  color: #962630;
+  font-weight: 800;
+}
+.sort-icon-container {
+  margin-right: 3px;
+}
+
+.text-property {
+  display: block;
+}
+
+.filter-container {
+  padding: 10px;
+  background-color: #e8e8e8;
+  border-radius: 10px;
 }
 
 tbody td {
@@ -184,6 +222,7 @@ tbody tr {
 }
 
 tbody tr td {
-  padding: 10px 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
