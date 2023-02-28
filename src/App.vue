@@ -193,6 +193,14 @@ export default {
   padding: 15px;
   display: flex;
   flex-direction: row;
+  background-color: #f2f2f2;
+}
+
+.data-table-container,
+.details-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .data-table-container {
