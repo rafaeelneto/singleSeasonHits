@@ -30,6 +30,7 @@
                   v-if="fields[fieldName].filter"
                   class="icon-button"
                   v-on:click="(event) => openFilterDialog(fieldName, event)"
+                  aria-label="Filter field"
                 >
                   <vue-feather
                     type="filter"

@@ -34,6 +34,7 @@
             v-if="selectedItem.id"
             class="icon-button close-btn"
             v-on:click="deselectItem"
+            aria-label="Back"
           >
             <vue-feather type="chevron-left"></vue-feather>
             Back
@@ -345,7 +346,7 @@ footer {
 .socialLinks:visited,
 .socialLinks:hover {
   text-decoration: none;
-  color: #0174bb;
+  color: #2caaf9;
 }
 
 @media (min-width: 600px) {
