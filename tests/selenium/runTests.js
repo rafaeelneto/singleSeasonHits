@@ -8,7 +8,7 @@ const { verifyFilterField } = require('./filterByField.test');
 const options = {
   browser: 'chrome',
   server: 'http://localhost:4444/wd/hub',
-  testedURL: 'http://localhost:8081/',
+  testedURL: 'http://localhost:8080/',
   APIUrl: 'https://api.sampleapis.com/baseball/hitsSingleSeason',
 };
 

@@ -9,7 +9,7 @@ const {
   success,
 } = require('../helpers/consoleColor');
 
-export async function verifyTableCount(driver, options) {
+async function verifyTableCount(driver, options) {
   try {
     await driver.get(options.testedURL);
 
@@ -55,3 +55,5 @@ export async function verifyTableCount(driver, options) {
     await driver.quit();
   }
 }
+
+module.exports = { verifyTableCount };

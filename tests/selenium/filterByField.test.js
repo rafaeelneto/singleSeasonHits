@@ -5,7 +5,7 @@ const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { filterFunction } = require('../../src/utils/filterMethod');
 
-export async function verifyFilterField(field, min, max, driver, options) {
+async function verifyFilterField(field, min, max, driver, options) {
   try {
     await driver.get(options.testedURL);
 
@@ -76,3 +76,4 @@ export async function verifyFilterField(field, min, max, driver, options) {
     await driver.quit();
   }
 }
+module.exports = { verifyFilterField };

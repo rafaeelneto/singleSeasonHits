@@ -5,7 +5,7 @@ const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { sortingMethods } = require('../../src/utils/sortingMethods');
 
-export async function verifySortingByField(field, driver, options) {
+async function verifySortingByField(field, driver, options) {
   try {
     await driver.get(options.testedURL);
 
@@ -104,3 +104,5 @@ async function triggerSortFieldAndReturnSortedTableData(
 
   return sortedTableData;
 }
+
+module.exports = { verifySortingByField };
