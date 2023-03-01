@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .value-text {
   font-weight: 300;
   font-size: 14px;
@@ -73,21 +73,5 @@ export default {
   padding: 5px;
   border: 1px solid #5a5959;
   border-radius: 5px;
-}
-
-.vue-slider-process {
-  background-color: #183540;
-}
-
-.vue-slider-dot-handle {
-  border-color: #183540;
-}
-.vue-slider:hover .vue-slider-process {
-  background-color: #3b8dae;
-}
-
-.vue-slider:hover .vue-slider-dot-handle:hover,
-.vue-slider:hover .vue-slider-dot-handle {
-  border-color: #3b8dae;
 }
 </style>

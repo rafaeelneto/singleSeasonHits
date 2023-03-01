@@ -20,6 +20,7 @@
       <DataTable
         :fields="fields"
         :data="singleHitsData"
+        :selectedItem="selectedItem"
         @sort-by-field="sortByField"
         @change-filter="updateFilter"
         @activate-filter="activateFilter"
@@ -314,6 +315,7 @@ export default {
   background: rgb(218, 218, 218);
   border: none;
   font-size: 20px;
+  border-radius: 5px;
 }
 
 .close-btn {
@@ -386,5 +388,21 @@ footer {
   .close-btn {
     display: none;
   }
+}
+
+.vue-slider-process {
+  background-color: #183540;
+}
+
+.vue-slider-dot-handle {
+  border-color: #183540;
+}
+.vue-slider:hover .vue-slider-process {
+  background-color: #3b8dae;
+}
+
+.vue-slider:hover .vue-slider-dot-handle:hover,
+.vue-slider:hover .vue-slider-dot-handle {
+  border-color: #3b8dae;
 }
 </style>

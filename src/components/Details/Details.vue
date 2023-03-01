@@ -1,6 +1,6 @@
 <template>
-  <section v-if="!data.id" class="no-selected-item">
-    Select a player on the table to see more datails
+  <section v-if="!data.id" class="no-selected-msg">
+    Select a player on the list on the left to see more datails
   </section>
   <div v-else>
     <span class="player-id">#ID: {{ data.id }}</span>
@@ -40,7 +40,16 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+.no-selected-msg {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #535657;
+}
 .player-id,
 .field-aux {
   display: block;

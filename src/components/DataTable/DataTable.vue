@@ -1,4 +1,7 @@
 <template>
+  <section v-if="!selectedItem.id" class="no-selected-msg">
+    Select a player on the list below to see more datails
+  </section>
   <div class="table-container">
     <table id="data-table">
       <thead>
@@ -41,7 +44,6 @@
               <div
                 class="head-filter-container"
                 v-if="fields[fieldName].filter?.active"
-                v-on:click="event.stopPropagation()"
               >
                 <RangeFilterDialog
                   :value="fields[fieldName].filter.value"
@@ -83,8 +85,13 @@ export default {
   props: {
     data: {
       type: Array,
+      default: () => [],
     },
     fields: {
+      type: Object,
+      default: () => ({}),
+    },
+    selectedItem: {
       type: Object,
       default: () => ({}),
     },
@@ -143,6 +150,16 @@ export default {
 </script>
 
 <style scoped>
+.no-selected-msg {
+  display: flex;
+  width: 100%;
+  margin: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #535657;
+}
+
 .icon-button {
   height: 30px;
   width: 30px;
@@ -243,5 +260,11 @@ tbody td {
 tbody tr td {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+@media (min-width: 1025px) {
+  .no-selected-msg {
+    display: none;
+  }
 }
 </style>
