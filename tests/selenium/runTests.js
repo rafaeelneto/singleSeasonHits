@@ -22,7 +22,7 @@ async function runTest() {
 
   await verifyFilterField('Rank', 20, 70, options, JSON.parse(apiItems));
   await verifyFilterField('AgeThatYear', 20, 30, options, JSON.parse(apiItems));
-  await verifyFilterField('Hits', 20, 70, options, JSON.parse(apiItems));
+  await verifyFilterField('Hits', 210, 230, options, JSON.parse(apiItems));
 }
 
 runTest();

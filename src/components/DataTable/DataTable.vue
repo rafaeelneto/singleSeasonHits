@@ -204,8 +204,8 @@ th .head-title-container {
   flex-direction: row;
   justify-content: center;
   align-items: end;
-  align-content: flex-end;
-  align-items: flex-end;
+  align-content: center;
+  align-items: center;
 }
 
 .head-title-container span {
@@ -237,11 +237,6 @@ thead th:hover {
   margin-right: 3px;
   height: 24px;
   width: 24px;
-}
-
-.icon-button {
-  height: 24px;
-  width: 30px;
 }
 
 .head-filter-container {

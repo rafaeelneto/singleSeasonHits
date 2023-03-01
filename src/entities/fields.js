@@ -13,7 +13,7 @@ export const fields = {
   id: new Field(`ID`, 'desc', true),
   Rank: new Field(
     `Rank`,
-    undefined,
+    'normal',
     true,
     generateRangeFilterOptions('Rank', 0, 500)
   ),
