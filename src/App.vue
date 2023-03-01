@@ -320,6 +320,9 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 18px;
+  padding: 0px;
+  margin-bottom: 5px;
 }
 
 footer {
