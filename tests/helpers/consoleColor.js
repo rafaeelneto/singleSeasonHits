@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
 const error = chalk.red;
 const warning = chalk.yellow;
