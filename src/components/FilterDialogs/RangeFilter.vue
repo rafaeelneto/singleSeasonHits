@@ -31,7 +31,7 @@
 </template>
 <script>
 import VueSlider from 'vue-slider-component';
-import 'vue-slider-component/theme/default.css';
+import 'vue-slider-component/theme/antd.css';
 
 export default {
   name: 'RangeFilterDialog',
@@ -73,5 +73,21 @@ export default {
   padding: 5px;
   border: 1px solid #5a5959;
   border-radius: 5px;
+}
+
+.vue-slider-process {
+  background-color: #183540;
+}
+
+.vue-slider-dot-handle {
+  border-color: #183540;
+}
+.vue-slider:hover .vue-slider-process {
+  background-color: #3b8dae;
+}
+
+.vue-slider:hover .vue-slider-dot-handle:hover,
+.vue-slider:hover .vue-slider-dot-handle {
+  border-color: #3b8dae;
 }
 </style>

@@ -27,15 +27,16 @@
       />
     </section>
 
-    <aside class="details-container">
+    <aside class="details-container" :class="selectedItem.id ? 'active' : ''">
       <transition name="slide">
-        <div v-if="selectedItem.id" class="details-panel">
+        <div class="details-panel">
           <button
             v-if="selectedItem.id"
-            class="icon-button"
+            class="icon-button close-btn"
             v-on:click="deselectItem"
           >
-            <vue-feather type="filter"></vue-feather>
+            <vue-feather type="chevron-left"></vue-feather>
+            Back
           </button>
           <DetailsComponent :data="selectedItem" />
         </div>
@@ -43,45 +44,50 @@
     </aside>
   </div>
   <footer>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
-    <h1>fadsfaf</h1>
+    <p class="footerText">Designed and Developed by Rafael Gomes</p>
+    <section class="socialLinksContainer">
+      <a
+        class="socialLinks"
+        href="https://www.behance.net/rafaeelneto"
+        target="_blank"
+        >Behance</a
+      >
+      <a
+        class="socialLinks"
+        href="https://www.linkedin.com/in/rafaeelneto/"
+        target="_blank"
+        >Linkedin</a
+      >
+      <a
+        class="socialLinks"
+        href="mailto: rafaelneto.g@gmail.com"
+        target="_blank"
+        >Email</a
+      >
+    </section>
   </footer>
 </template>
 
 <script>
 import axios from 'axios';
+import { useToast } from 'vue-toastification';
+
 import DataTable from './components/DataTable/DataTable.vue';
 import DetailsComponent from './components/Details/Details.vue';
 
 import { fields as defaultFields } from './fields';
 
-const sortingMethods = {
-  asc: (fieldName) => (a, b) => {
-    if (a[fieldName] === '' || a[fieldName] === null) return -1;
-    if (b[fieldName] === '' || b[fieldName] === null) return 1;
-    if (a[fieldName] === b[fieldName]) return 0;
-    return Number(a[fieldName]) > Number(b[fieldName]) ? -1 : 1;
-  },
-  desc: (fieldName) => (a, b) => {
-    if (a[fieldName] === '' || a[fieldName] === null) return 1;
-    if (b[fieldName] === '' || b[fieldName] === null) return -1;
-    if (a[fieldName] === b[fieldName]) return 0;
-    return Number(a[fieldName]) < Number(b[fieldName]) ? -1 : 1;
-  },
-};
+import { sortingMethods } from './utils/sortingMethods';
 
 export default {
   name: 'App',
   components: {
     DataTable,
     DetailsComponent,
+  },
+  setup() {
+    const toast = useToast();
+    return { toast };
   },
   data() {
     return {
@@ -95,6 +101,26 @@ export default {
       .get('https://api.sampleapis.com/baseball/hitsSingleSeason')
       .then((response) => {
         this.singleHitsData = response.data;
+      })
+      .catch((error) => {
+        this.toast.error(
+          `Error while fetching data. Please check your connection and try again later.
+          Error details: ${error.message}`,
+          {
+            position: 'top-center',
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.4,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: 'button',
+            icon: true,
+            rtl: false,
+          }
+        );
       });
   },
   methods: {
@@ -160,10 +186,9 @@ export default {
   font-family: Lato, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #183540;
   width: 100vw;
   height: 100vh;
-  position: relative;
 }
 
 .header {
@@ -174,24 +199,35 @@ export default {
   align-items: start;
 }
 
+.header::after {
+  display: block;
+  position: absolute;
+  background-image: linear-gradient(to bottom, #00000000 0, #19191b 100%);
+  top: 80px;
+  margin-top: -30px;
+  height: 150px;
+  width: 100%;
+  content: '';
+  z-index: -1;
+}
+
 #background-video {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
 }
 
-.text-container {
+.header .text-container {
   padding: 15px;
 }
 
 .header h1 {
-  color: white;
-  font-size: 42px;
+  color: #fff;
+  font-size: 38px;
   text-transform: uppercase;
   letter-spacing: 12px;
   font-family: Chivo;
@@ -201,9 +237,9 @@ export default {
 
 .header h2 {
   margin-top: 5px;
-  color: rgba(255, 255, 255, 0.801);
+  color: white;
   text-transform: uppercase;
-  font-size: 22px;
+  font-size: 18px;
   font-family: Lato;
   font-weight: 500;
   text-align: left;
@@ -216,7 +252,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #f2f2f2;
+  background-color: #19191b;
   position: relative;
 }
 
@@ -224,19 +260,24 @@ export default {
 .details-container {
   background-color: white;
   border-radius: 5px;
-  padding: 10px;
 }
 
 .data-table-container {
   width: 100%;
   height: 100%;
-  max-height: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .details-container {
-  width: 45%;
-  margin-left: 10px;
+  display: none;
+}
+
+.details-container.active {
+  width: 95%;
+  height: 95%;
+  display: block;
+  position: absolute;
+  right: 0px;
 }
 
 .slide-enter-active,
@@ -251,11 +292,10 @@ export default {
 }
 
 .details-panel {
-  overflow-y: auto;
   position: absolute;
   background-color: white;
-  right: 0;
-  top: 0;
+  right: 0px;
+  top: 0px;
   height: 100%;
   z-index: 999;
   padding: 15px;
@@ -264,6 +304,45 @@ export default {
 
 .icon-button {
   height: 30px;
+  background: white;
+  border: none;
+}
+
+.icon-button:hover {
+  height: 30px;
+  background: rgb(218, 218, 218);
+  border: none;
+  font-size: 20px;
+}
+
+.close-btn {
+  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  height: 80px;
+  background-color: #19191b;
+  padding: 15px;
+  color: white;
+}
+
+.socialLinksContainer {
+  display: flex;
+  max-width: 200px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.socialLinks,
+.socialLinks:visited,
+.socialLinks:hover {
+  text-decoration: none;
+  color: #0174bb;
 }
 
 @media (min-width: 600px) {
@@ -274,22 +353,34 @@ export default {
   .content-wrapper {
     padding: 15px;
   }
-
-  .data-table-container {
-    width: 55%;
-  }
 }
 
 @media (min-width: 1025px) {
+  .data-table-container {
+    width: 55%;
+  }
+
   #background-video {
     height: 200px;
   }
   .details-panel {
-    position: relative;
-    background-color: white;
     height: 100%;
     padding: 15px;
     width: 100%;
+    border-radius: 5px;
+  }
+
+  .details-container,
+  .details-container.active {
+    height: 100%;
+    width: 45%;
+    display: block;
+    margin-left: 10px;
+    position: relative;
+  }
+
+  .close-btn {
+    display: none;
   }
 }
 </style>

@@ -7,10 +7,9 @@
             v-for="(field, fieldName) in visibleFilters"
             :id="fieldName"
             :key="fieldName"
-            @click="sortByField(fieldName)"
           >
             <div class="head-cell-container">
-              <div class="head-title-container">
+              <div class="head-title-container" @click="sortByField(fieldName)">
                 <div class="sort-icon-container">
                   <vue-feather
                     v-if="fields[fieldName].sort === 'normal'"
@@ -72,7 +71,7 @@
 </template>
 
 <script>
-import RangeFilterDialog from '../FilterDialogs/RangeFilterDialog.vue';
+import RangeFilterDialog from '../FilterDialogs/RangeFilter.vue';
 
 export default {
   name: 'DataTable',
@@ -142,18 +141,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .icon-button {
   height: 30px;
   width: 30px;
-  background: white;
-  border: none;
 }
 
 .table-container {
   height: 100%;
   overflow-y: auto;
-  padding-right: 10px;
+  margin-top: 10px;
 }
 
 table {
@@ -193,7 +190,7 @@ thead th {
   font-family: Lato;
   font-weight: bold;
   font-size: 18px;
-  color: #e03a48;
+  color: #d91438;
   background-color: transparent;
   min-width: 150px;
 }
@@ -207,8 +204,7 @@ thead th {
 }
 
 thead th:hover {
-  color: #962630;
-  font-weight: 800;
+  color: #590212;
 }
 .sort-icon-container {
   margin-right: 3px;
@@ -228,14 +224,19 @@ thead th:hover {
   margin: 0 auto;
 }
 
+tbody tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #c8c8c8;
+}
+
 tbody td {
   font-family: Lato;
   font-size: 15px;
-  color: gray;
+  color: #33333c;
   line-height: 1.4;
-}
-tbody tr {
-  border-bottom: 1px solid #f2f2f2;
 }
 
 tbody tr td {

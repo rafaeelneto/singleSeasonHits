@@ -55,6 +55,11 @@ export default {
 
 .player-name {
   font-size: 48px;
+  overflow-wrap: break-word;
+  font-size: 36px;
+  font-weight: 800;
+  width: 100%;
+  white-space: normal;
 }
 
 .main-section {
@@ -72,6 +77,6 @@ export default {
 }
 
 .field-value {
-  font-size: 36px;
+  font-size: 32px;
 }
 </style>

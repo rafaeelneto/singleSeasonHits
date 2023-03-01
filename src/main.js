@@ -3,4 +3,14 @@ import App from './App.vue';
 
 import VueFeather from 'vue-feather';
 
-createApp(App).component(VueFeather.name, VueFeather).mount('#app');
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+
+const app = createApp(App);
+app.component(VueFeather.name, VueFeather).mount('#app');
+
+app.use(Toast, {
+  transition: 'Vue-Toastification__bounce',
+  maxToasts: 20,
+  newestOnTop: true,
+});
