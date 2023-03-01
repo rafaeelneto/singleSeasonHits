@@ -9,6 +9,7 @@ const filterFunction = (fieldName) => {
     };
   };
 };
+
 export const fields = {
   id: {
     label: `ID`,

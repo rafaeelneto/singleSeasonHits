@@ -1,52 +1,56 @@
 <template>
   <div class="table-container">
-    <table>
+    <table id="data-table">
       <thead>
         <tr>
           <th
             v-for="(field, fieldName) in visibleFilters"
+            :id="fieldName"
             :key="fieldName"
             @click="sortByField(fieldName)"
           >
             <div class="head-cell-container">
-              <div class="sort-icon-container">
-                <vue-feather
-                  v-if="fields[fieldName].sort === 'normal'"
-                  type="bar-chart-2"
-                />
-                <vue-feather
-                  v-else-if="fields[fieldName].sort === 'asc'"
-                  type="arrow-up"
-                />
-                <vue-feather
-                  v-else-if="fields[fieldName].sort === 'desc'"
-                  type="arrow-down"
-                />
-              </div>
-              <div class="text-property">{{ fields[fieldName].label }}</div>
+              <div class="head-title-container">
+                <div class="sort-icon-container">
+                  <vue-feather
+                    v-if="fields[fieldName].sort === 'normal'"
+                    type="bar-chart-2"
+                  />
+                  <vue-feather
+                    v-else-if="fields[fieldName].sort === 'asc'"
+                    type="arrow-up"
+                  />
+                  <vue-feather
+                    v-else-if="fields[fieldName].sort === 'desc'"
+                    type="arrow-down"
+                  />
+                </div>
+                <div class="text-property">{{ fields[fieldName].label }}</div>
 
-              <button
-                v-if="fields[fieldName].filter"
-                class="icon-button"
-                v-on:click="(event) => openFilterDialog(fieldName, event)"
+                <button
+                  v-if="fields[fieldName].filter"
+                  class="icon-button"
+                  v-on:click="(event) => openFilterDialog(fieldName, event)"
+                >
+                  <vue-feather
+                    type="filter"
+                    :fill="fields[fieldName].filter?.active ? 'black' : 'none'"
+                  ></vue-feather>
+                </button>
+              </div>
+              <div
+                class="head-filter-container"
+                v-if="fields[fieldName].filter?.active"
+                v-on:click="event.stopPropagation()"
               >
-                <vue-feather
-                  type="filter"
-                  :fill="fields[fieldName].filter?.active ? 'black' : 'none'"
-                ></vue-feather>
-              </button>
-            </div>
-            <div
-              class="filter-container"
-              v-if="fields[fieldName].filter?.active"
-            >
-              <RangeFilterDialog
-                :value="fields[fieldName].filter.value"
-                :fieldName="fieldName"
-                @filter-change="updateFilter"
-                :min="fields[fieldName].filter.default[0]"
-                :max="fields[fieldName].filter.default[1]"
-              ></RangeFilterDialog>
+                <RangeFilterDialog
+                  :value="fields[fieldName].filter.value"
+                  :fieldName="fieldName"
+                  @filter-change="updateFilter"
+                  :min="fields[fieldName].filter.default[0]"
+                  :max="fields[fieldName].filter.default[1]"
+                ></RangeFilterDialog>
+              </div>
             </div>
           </th>
         </tr>
@@ -174,16 +178,16 @@ table td {
   padding: 5px;
 }
 
-th .head-cell-container {
+th .head-title-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.head-cell-container span {
+.head-title-container span {
   display: block;
-  line-height: normal;
+  margin: auto 0;
 }
 thead th {
   font-family: Lato;
@@ -191,6 +195,15 @@ thead th {
   font-size: 18px;
   color: #e03a48;
   background-color: transparent;
+  /* min-width: 200px; */
+}
+
+.head-cell-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
 }
 
 thead th:hover {
@@ -203,12 +216,16 @@ thead th:hover {
 
 .text-property {
   display: block;
+  margin: auto 0;
 }
 
-.filter-container {
+.head-filter-container {
   padding: 10px;
   background-color: #e8e8e8;
   border-radius: 10px;
+  max-width: 200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 tbody td {

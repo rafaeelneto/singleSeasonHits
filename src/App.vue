@@ -113,6 +113,12 @@ export default {
       }
     },
     updateFilter({ fieldName, newValue }) {
+      if (newValue[0] > newValue[1]) {
+        const temp = newValue[0];
+        newValue[0] = newValue[1];
+        newValue[1] = temp;
+      }
+
       const field = this.fields[fieldName];
       if (field?.filter) {
         field.filter.value = newValue;

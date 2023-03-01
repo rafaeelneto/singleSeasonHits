@@ -4,10 +4,29 @@
     @update:modelValue="(newValue) => onChangeSlider(fieldName, newValue)"
     :min="min"
     :max="max"
+    :enable-cross="false"
   ></vue-slider>
   <span class="value-text">
-    Filter from <strong>{{ value[0] }}</strong> to
-    <strong>{{ value[1] }}</strong>
+    from
+    <input
+      class="value-filter-input"
+      type="number"
+      :value="value[0]"
+      @input="
+        (event) =>
+          onChangeSlider(fieldName, [Number(event.target.value), value[1]])
+      "
+    />
+    to
+    <input
+      class="value-filter-input"
+      type="number"
+      :value="value[1]"
+      @input="
+        (event) =>
+          onChangeSlider(fieldName, [value[0], Number(event.target.value)])
+      "
+    />
   </span>
 </template>
 <script>
@@ -49,7 +68,10 @@ export default {
   color: rgb(67, 67, 71);
 }
 
-.value-text strong {
-  font-weight: 600;
+.value-filter-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #5a5959;
+  border-radius: 5px;
 }
 </style>
