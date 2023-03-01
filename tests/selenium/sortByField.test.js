@@ -1,9 +1,9 @@
-import { By } from 'selenium-webdriver';
+const { By } = require('selenium-webdriver');
 
-import { makeAPICall } from '../helpers/makeAPICall';
-import { equalsCheck } from '../helpers/equalsCheck';
+const { makeAPICall } = require('../helpers/makeAPICall');
+const { equalsCheck } = require('../helpers/equalsCheck');
 
-import { sortingMethods } from '../../src/utils/sortingMethods';
+const { sortingMethods } = require('../../src/utils/sortingMethods');
 
 export async function verifySortingByField(field, driver, options) {
   try {

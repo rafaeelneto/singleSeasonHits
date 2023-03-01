@@ -1,8 +1,13 @@
-import { By } from 'selenium-webdriver';
+const { By } = require('selenium-webdriver');
 
-import { makeAPICall } from '../helpers/makeAPICall';
+const { makeAPICall } = require('../helpers/makeAPICall');
 
-import { error, important, warning, success } from '../helpers/consoleColor';
+const {
+  error,
+  important,
+  warning,
+  success,
+} = require('../helpers/consoleColor');
 
 export async function verifyTableCount(driver, options) {
   try {
