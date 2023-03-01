@@ -4,6 +4,8 @@ const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { filterFunction } = require('../helpers/filterMethod');
 
+const { error, important, success } = require('../helpers/consoleColor');
+
 async function verifyFilterField(field, min, max, options, apiItems) {
   const driver = new Builder()
     .forBrowser(options.browser)
@@ -16,7 +18,7 @@ async function verifyFilterField(field, min, max, options, apiItems) {
     // Wait for 5 seconds to give the page time to load
     await driver.sleep(5000);
 
-    console.log(`Verify that the field ${field} can be filtered`);
+    console.log(important(`Verify that the field ${field} can be filtered`));
 
     // Click the filter button to trigger the filter menu inside the table head cell
     const rankButton = await driver.findElement(
@@ -65,13 +67,13 @@ async function verifyFilterField(field, min, max, options, apiItems) {
       .filter(filterFunction(field)([min, max]))
       .map((item) => item.id);
 
-    console.log(filteredApiItemsId);
-    console.log(filteredTableData);
+    // console.log(filteredApiItemsId);
+    // console.log(filteredTableData);
 
     if (equalsCheck(filteredTableData, filteredApiItemsId)) {
-      console.log(`${field} succefully filtered`);
+      console.log(success(`${field} succefully filtered`));
     } else {
-      console.error(`Fail on filter ${field}`);
+      console.error(error(`Fail on filter ${field}`));
     }
   } finally {
     console.log('______________________________________________________');

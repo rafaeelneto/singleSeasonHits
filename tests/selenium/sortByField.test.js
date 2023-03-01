@@ -4,6 +4,8 @@ const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { sortingMethods } = require('../helpers/sortingMethods');
 
+const { error, important, success } = require('../helpers/consoleColor');
+
 async function verifySortingByField(field, options, apiItems) {
   const driver = new Builder()
     .forBrowser(options.browser)
@@ -16,7 +18,7 @@ async function verifySortingByField(field, options, apiItems) {
     // Wait for 5 seconds to give the page time to load
     await driver.sleep(5000);
 
-    console.log(`Verify that the field ${field} can be sorted`);
+    console.log(important(`Verify that the field ${field} can be sorted`));
 
     // Find the table element using its ID
     const tableElement = await driver.findElement(
@@ -39,18 +41,14 @@ async function verifySortingByField(field, options, apiItems) {
       tableElement
     );
 
-    // console.log('Ascending sorted table data:', sortedTableData);
-
     let sortedApiItemsId = apiItems
       .sort(sortingMethods.asc(field))
       .map((item) => item.id);
 
-    // console.log('Ascending sorted API data:', sortedApiItemsId);
-
     if (equalsCheck(sortedApiItemsId, sortedTableData)) {
-      console.log(`${field} succefully increasing sorted`);
+      console.log(success(`${field} succefully increasing sorted`));
     } else {
-      console.error(`Fail on sorting ${field}`);
+      console.error(error(`Fail on sorting ${field}`));
     }
 
     sortedTableData = await triggerSortFieldAndReturnSortedTableData(
@@ -68,9 +66,9 @@ async function verifySortingByField(field, options, apiItems) {
     // console.log('Descending sorted API data:', sortedApiItemsId);
 
     if (equalsCheck(sortedApiItemsId, sortedTableData)) {
-      console.log(`${field} succefully decreasing sorted`);
+      console.log(success(`${field} succefully decreasing sorted`));
     } else {
-      console.error(`Fail on sorting ${field}`);
+      console.error(error(`Fail on sorting ${field}`));
     }
   } finally {
     console.log('______________________________________________________');
