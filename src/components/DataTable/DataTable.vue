@@ -104,7 +104,7 @@ export default {
       if (e) {
         e.stopPropagation();
       }
-      // open filter box
+      // Emits event to activate filter and open filter box
       this.$emit('activate-filter', {
         fieldName,
         active: !this.fields[fieldName].filter.active,
@@ -141,11 +141,12 @@ export default {
         }
       }
 
-      const filtedArray = filters.reduce(
+      // Iterate over the filter and apply them on the data
+      const filteredData = filters.reduce(
         (d, filter) => d.filter(filter.fn(filter.value)),
         this.data
       );
-      return filtedArray;
+      return filteredData;
     },
   },
 };

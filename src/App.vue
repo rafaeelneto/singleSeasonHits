@@ -88,7 +88,7 @@ import { useToast } from 'vue-toastification';
 import DataTable from './components/DataTable/DataTable.vue';
 import DetailsComponent from './components/Details/Details.vue';
 
-import { fields as defaultFields } from './fields';
+import { fields as defaultFields } from './entities/fields';
 
 import { sortingMethods } from './utils/sortingMethods';
 
@@ -99,6 +99,7 @@ export default {
     DetailsComponent,
   },
   setup() {
+    // Setup Toast to show message popups
     const toast = useToast();
     return { toast };
   },
@@ -110,12 +111,14 @@ export default {
     };
   },
   mounted() {
+    // Make the API Call
     axios
       .get('https://api.sampleapis.com/baseball/hitsSingleSeason')
       .then((response) => {
         this.singleHitsData = response.data;
       })
       .catch((error) => {
+        // In case of error show a message to the user as a popup using toast
         this.toast.error(
           `Error while fetching data. Please check your connection and try again later.
           Error details: ${error.message}`,
@@ -156,6 +159,7 @@ export default {
 
         this.singleHitsData.sort(sortingFn);
 
+        // Iterate over the others field and set them to normal
         for (const fieldKey in this.fields) {
           if (fieldKey !== fieldName && this.fields[fieldKey].sort) {
             this.fields[fieldKey].sort = 'normal';
@@ -164,25 +168,28 @@ export default {
       }
     },
     updateFilter({ fieldName, newValue }) {
+      // If the values are in oposite order, swap them
       if (newValue[0] > newValue[1]) {
         const temp = newValue[0];
         newValue[0] = newValue[1];
         newValue[1] = temp;
       }
 
+      // Set the values of the filter so it can be used latter
       const field = this.fields[fieldName];
       if (field?.filter) {
         field.filter.value = newValue;
       }
     },
     activateFilter({ fieldName, active }) {
+      // Set the filter property to be true
+      // This will be used on filtering the table on the DataTable component
       const field = this.fields[fieldName];
       if (field?.filter) {
         field.filter.active = active;
       }
     },
     selectItem(itemId) {
-      console.log(itemId);
       this.selectedItem = this.singleHitsData.filter(
         (row) => row.id === itemId
       )[0];
