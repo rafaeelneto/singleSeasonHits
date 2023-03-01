@@ -3,7 +3,7 @@ const { By, until } = require('selenium-webdriver');
 const { makeAPICall } = require('../helpers/makeAPICall');
 const { equalsCheck } = require('../helpers/equalsCheck');
 
-const { filterFunction } = require('../../src/utils/filterMethod');
+const { filterFunction } = require('../helpers/filterMethod');
 
 async function verifyFilterField(field, min, max, driver, options) {
   try {

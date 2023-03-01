@@ -3,7 +3,7 @@ const { By } = require('selenium-webdriver');
 const { makeAPICall } = require('../helpers/makeAPICall');
 const { equalsCheck } = require('../helpers/equalsCheck');
 
-const { sortingMethods } = require('../../src/utils/sortingMethods');
+const { sortingMethods } = require('../helpers/sortingMethods');
 
 async function verifySortingByField(field, driver, options) {
   try {
