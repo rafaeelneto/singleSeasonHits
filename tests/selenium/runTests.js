@@ -13,16 +13,16 @@ const options = {
 console.log(`TESTING APPLICATION ON ${options.testedURL}`);
 
 async function runTest() {
-  const apiItems = await makeAPICall(options.APIUrl);
+  const apiItems = JSON.stringify(await makeAPICall(options.APIUrl));
 
-  await verifyTableCount(options, apiItems);
+  await verifyTableCount(options, JSON.parse(apiItems));
 
-  await verifySortingByField('Rank', options, apiItems);
-  await verifySortingByField('Hits', options, apiItems);
+  await verifySortingByField('Rank', options, JSON.parse(apiItems));
+  await verifySortingByField('Hits', options, JSON.parse(apiItems));
 
-  await verifyFilterField('Rank', 20, 70, options, apiItems);
-  await verifyFilterField('AgeThatYear', 20, 30, options, apiItems);
-  await verifyFilterField('Hits', 20, 70, options, apiItems);
+  await verifyFilterField('Rank', 20, 70, options, JSON.parse(apiItems));
+  await verifyFilterField('AgeThatYear', 20, 30, options, JSON.parse(apiItems));
+  await verifyFilterField('Hits', 20, 70, options, JSON.parse(apiItems));
 }
 
 runTest();

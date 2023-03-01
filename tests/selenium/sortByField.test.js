@@ -4,7 +4,13 @@ const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { sortingMethods } = require('../helpers/sortingMethods');
 
-const { error, important, success } = require('../helpers/consoleColor');
+const {
+  error,
+  important,
+  // eslint-disable-next-line no-unused-vars
+  warning,
+  success,
+} = require('../helpers/consoleColor');
 
 async function verifySortingByField(field, options, apiItems) {
   const driver = new Builder()
@@ -57,13 +63,13 @@ async function verifySortingByField(field, options, apiItems) {
       tableElement
     );
 
-    // console.log('Descending sorted table data:', sortedTableData);
+    // console.log(warning('Descending sorted table data:', sortedTableData));
 
     sortedApiItemsId = apiItems
       .sort(sortingMethods.desc(field))
       .map((item) => item.id);
 
-    // console.log('Descending sorted API data:', sortedApiItemsId);
+    // console.log(warning('Descending sorted API data:', sortedApiItemsId));
 
     if (equalsCheck(sortedApiItemsId, sortedTableData)) {
       console.log(success(`${field} succefully decreasing sorted`));
