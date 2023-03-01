@@ -203,7 +203,9 @@ th .head-title-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: end;
+  align-content: flex-end;
+  align-items: flex-end;
 }
 
 .head-title-container span {
@@ -233,6 +235,13 @@ thead th:hover {
 }
 .sort-icon-container {
   margin-right: 3px;
+  height: 24px;
+  width: 24px;
+}
+
+.icon-button {
+  height: 24px;
+  width: 30px;
 }
 
 .head-filter-container {

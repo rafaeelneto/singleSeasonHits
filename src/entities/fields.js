@@ -13,11 +13,11 @@ export const fields = {
   id: new Field(`ID`, 'desc', true),
   Rank: new Field(
     `Rank`,
-    'normal',
+    undefined,
     true,
     generateRangeFilterOptions('Rank', 0, 500)
   ),
-  Player: new Field(`Player's Name`, false, true),
+  Player: new Field(`Player's Name`, undefined, true),
   AgeThatYear: new Field(
     `Age that Year`,
     undefined,
