@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 
-export const error = chalk.red;
-export const warning = chalk.yellow;
-export const success = chalk.bgGreen;
-export const important = chalk.bgBlue;
+const error = chalk.red;
+const warning = chalk.yellow;
+const success = chalk.bgGreen;
+const important = chalk.bgBlue;
+
+module.exports = { error, warning, success, important };
