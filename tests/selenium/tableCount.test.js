@@ -1,16 +1,20 @@
-const { By } = require('selenium-webdriver');
+import { By } from 'selenium-webdriver';
 
-const { makeAPICall } = require('../helpers/makeAPICall');
+import { makeAPICall } from '../helpers/makeAPICall';
+
+import { error, important, warning, success } from '../helpers/consoleColor';
 
 export async function verifyTableCount(driver, options) {
   try {
     await driver.get(options.testedURL);
 
-    // Wait for 5 seconds to give the page time to load
-    await driver.sleep(5000);
+    // Wait for 3 seconds to give the page time to load
+    await driver.sleep(3000);
 
     console.log(
-      'Verify that the list view displays all the players retrieved from the API'
+      important(
+        'Verify that the list view displays all the players retrieved from the API'
+      )
     );
 
     // Find the table element using its ID
@@ -21,20 +25,24 @@ export async function verifyTableCount(driver, options) {
     // Count the number of table rows inside the tbody element using XPath
     const tableRows = await tableElement.findElements(By.xpath('./tbody/tr'));
     const tableRowCount = tableRows.length;
-    console.log(`Number of table rows: ${tableRowCount}`);
+    console.log(warning(`Number of table rows: ${tableRowCount}`));
 
     // Make an API call to get the number of items from the external API
     const apiItemCount = await makeAPICall(options.APIUrl).length;
-    console.info(`Number of items from API: ${apiItemCount}`);
+    console.info(warning(`Number of items from API: ${apiItemCount}`));
 
     // Compare the counts
     if (tableRowCount === apiItemCount) {
       console.log(
-        'The number of table rows is equal to the number of items from the API.'
+        success(
+          'The number of table rows is equal to the number of items from the API.'
+        )
       );
     } else {
       console.error(
-        'The number of table rows is not equal to the number of items from the API.'
+        error(
+          'The number of table rows is not equal to the number of items from the API.'
+        )
       );
     }
   } finally {

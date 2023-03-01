@@ -1,9 +1,9 @@
-const { By, until } = require('selenium-webdriver');
+import { By, until } from 'selenium-webdriver';
 
-const { makeAPICall } = require('../helpers/makeAPICall');
-const { equalsCheck } = require('../helpers/equalsCheck');
+import { makeAPICall } from '../helpers/makeAPICall';
+import { equalsCheck } from '../helpers/equalsCheck';
 
-const { filterFunction } = require('../../src/utils/filterMethod');
+import { filterFunction } from '../../src/utils/filterMethod';
 
 export async function verifyFilterField(field, min, max, driver, options) {
   try {

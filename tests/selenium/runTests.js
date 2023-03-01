@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-const { Builder, By, Key, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
+import { Builder, By, Key, until } from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome';
 
-const { verifyTableCount } = require('./tableCount.test.js');
-const { verifySortingByField } = require('./sortByField.test');
-const { verifyFilterField } = require('./filterByField.test');
+import { verifyTableCount } from './tableCount.test.js';
+import { verifySortingByField } from './sortByField.test';
+import { verifyFilterField } from './filterByField.test';
 
 const options = {
   browser: 'chrome',
