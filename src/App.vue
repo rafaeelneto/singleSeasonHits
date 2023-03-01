@@ -16,6 +16,17 @@
   </header>
 
   <div class="content-wrapper">
+    <div v-if="loading" class="loading-wrapper">
+      <div class="spring-spinner">
+        <div class="spring-spinner-part top">
+          <div class="spring-spinner-rotator"></div>
+        </div>
+        <div class="spring-spinner-part bottom">
+          <div class="spring-spinner-rotator"></div>
+        </div>
+      </div>
+      Loading content. Please wait...
+    </div>
     <section class="data-table-container">
       <DataTable
         :fields="fields"
@@ -180,12 +191,18 @@ export default {
       this.selectedItem = {};
     },
   },
+  computed: {
+    loading() {
+      return !this.singleHitsData[0];
+    },
+  },
 };
 </script>
 
 <style>
 #app {
   font-family: Lato, Helvetica, Arial, sans-serif;
+  font-smooth: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #183540;
@@ -225,6 +242,7 @@ export default {
 
 .header .text-container {
   padding: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .header h1 {
@@ -256,6 +274,20 @@ export default {
   justify-content: center;
   background-color: #19191b;
   position: relative;
+}
+
+.loading-wrapper {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #19191b;
+  z-index: 1000;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .data-table-container,
@@ -302,6 +334,11 @@ export default {
   z-index: 999;
   padding: 15px;
   width: 100%;
+  box-shadow: -5px 0 20px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -5px 0 20px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -5px 0 20px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: -5px 0 20px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: -5px 0 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .icon-button {
@@ -374,6 +411,11 @@ footer {
     padding: 15px;
     width: 100%;
     border-radius: 5px;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -o-box-shadow: none;
+    -ms-box-shadow: none;
   }
 
   .details-container,
@@ -404,5 +446,57 @@ footer {
 .vue-slider:hover .vue-slider-dot-handle:hover,
 .vue-slider:hover .vue-slider-dot-handle {
   border-color: #3b8dae;
+}
+
+.spring-spinner,
+.spring-spinner * {
+  box-sizing: border-box;
+}
+
+.spring-spinner {
+  height: 60px;
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.spring-spinner .spring-spinner-part {
+  overflow: hidden;
+  height: calc(60px / 2);
+  width: 60px;
+}
+
+.spring-spinner .spring-spinner-part.bottom {
+  transform: rotate(180deg) scale(-1, 1);
+}
+
+.spring-spinner .spring-spinner-rotator {
+  width: 60px;
+  height: 60px;
+  border: calc(60px / 7) solid transparent;
+  border-right-color: #ff1d5e;
+  border-top-color: #ff1d5e;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: spring-spinner-animation 3s ease-in-out infinite;
+  transform: rotate(-200deg);
+}
+
+@keyframes spring-spinner-animation {
+  0% {
+    border-width: calc(60px / 7);
+  }
+  25% {
+    border-width: calc(60px / 23.33);
+  }
+  50% {
+    transform: rotate(115deg);
+    border-width: calc(60px / 7);
+  }
+  75% {
+    border-width: calc(60px / 23.33);
+  }
+  100% {
+    border-width: calc(60px / 7);
+  }
 }
 </style>
