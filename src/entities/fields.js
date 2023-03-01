@@ -20,6 +20,7 @@ export const fields = {
   Player: new Field(`Player's Name`, false, true),
   AgeThatYear: new Field(
     `Age that Year`,
+    undefined,
     true,
     generateRangeFilterOptions('AgeThatYear', 0, 100)
   ),

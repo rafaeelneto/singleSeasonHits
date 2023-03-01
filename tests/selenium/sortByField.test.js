@@ -1,11 +1,15 @@
-const { By } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
 
-const { makeAPICall } = require('../helpers/makeAPICall');
 const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { sortingMethods } = require('../helpers/sortingMethods');
 
-async function verifySortingByField(field, driver, options) {
+async function verifySortingByField(field, options, apiItems) {
+  const driver = new Builder()
+    .forBrowser(options.browser)
+    .usingServer(options.server)
+    .build();
+
   try {
     await driver.get(options.testedURL);
 
@@ -34,9 +38,6 @@ async function verifySortingByField(field, driver, options) {
       driver,
       tableElement
     );
-
-    // Make an API call to get the items from the external API and filter the results
-    const apiItems = await makeAPICall();
 
     // console.log('Ascending sorted table data:', sortedTableData);
 

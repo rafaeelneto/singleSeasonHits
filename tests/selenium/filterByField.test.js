@@ -1,11 +1,15 @@
-const { By, until } = require('selenium-webdriver');
+const { Builder, By, until } = require('selenium-webdriver');
 
-const { makeAPICall } = require('../helpers/makeAPICall');
 const { equalsCheck } = require('../helpers/equalsCheck');
 
 const { filterFunction } = require('../helpers/filterMethod');
 
-async function verifyFilterField(field, min, max, driver, options) {
+async function verifyFilterField(field, min, max, options, apiItems) {
+  const driver = new Builder()
+    .forBrowser(options.browser)
+    .usingServer(options.server)
+    .build();
+
   try {
     await driver.get(options.testedURL);
 
@@ -56,8 +60,6 @@ async function verifyFilterField(field, min, max, driver, options) {
       );
       filteredTableData.push(Number(rowTexts[0]));
     }
-
-    const apiItems = await makeAPICall();
 
     const filteredApiItemsId = apiItems
       .filter(filterFunction(field)([min, max]))

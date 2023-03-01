@@ -1,6 +1,4 @@
-const { By } = require('selenium-webdriver');
-
-const { makeAPICall } = require('../helpers/makeAPICall');
+const { Builder, By } = require('selenium-webdriver');
 
 const {
   error,
@@ -9,7 +7,11 @@ const {
   success,
 } = require('../helpers/consoleColor');
 
-async function verifyTableCount(driver, options) {
+async function verifyTableCount(options, apiItems) {
+  const driver = new Builder()
+    .forBrowser(options.browser)
+    .usingServer(options.server)
+    .build();
   try {
     await driver.get(options.testedURL);
 
@@ -33,7 +35,7 @@ async function verifyTableCount(driver, options) {
     console.log(warning(`Number of table rows: ${tableRowCount}`));
 
     // Make an API call to get the number of items from the external API
-    const apiItemCount = await makeAPICall(options.APIUrl).length;
+    const apiItemCount = apiItems.length;
     console.info(warning(`Number of items from API: ${apiItemCount}`));
 
     // Compare the counts
