@@ -195,7 +195,7 @@ thead th {
   font-size: 18px;
   color: #e03a48;
   background-color: transparent;
-  /* min-width: 200px; */
+  min-width: 150px;
 }
 
 .head-cell-container {

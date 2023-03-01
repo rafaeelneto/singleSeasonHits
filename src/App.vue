@@ -26,8 +26,20 @@
         @item-selected="selectItem"
       />
     </section>
+
     <aside class="details-container">
-      <DetailsComponent :data="selectedItem" />
+      <transition name="slide">
+        <div v-if="selectedItem.id" class="details-panel">
+          <button
+            v-if="selectedItem.id"
+            class="icon-button"
+            v-on:click="deselectItem"
+          >
+            <vue-feather type="filter"></vue-feather>
+          </button>
+          <DetailsComponent :data="selectedItem" />
+        </div>
+      </transition>
     </aside>
   </div>
   <footer>
@@ -131,9 +143,13 @@ export default {
       }
     },
     selectItem(itemId) {
+      console.log(itemId);
       this.selectedItem = this.singleHitsData.filter(
         (row) => row.id === itemId
       )[0];
+    },
+    deselectItem() {
+      this.selectedItem = {};
     },
   },
 };
@@ -160,7 +176,7 @@ export default {
 
 #background-video {
   width: 100%;
-  height: 200px;
+  height: 300px;
   object-fit: cover;
   display: block;
   position: absolute;
@@ -196,10 +212,12 @@ export default {
 .content-wrapper {
   width: 100%;
   height: 80%;
-  padding: 15px;
+  padding: 5px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   background-color: #f2f2f2;
+  position: relative;
 }
 
 .data-table-container,
@@ -210,7 +228,7 @@ export default {
 }
 
 .data-table-container {
-  width: 55%;
+  width: 100%;
   height: 100%;
   max-height: 100%;
   overflow-y: hidden;
@@ -219,5 +237,59 @@ export default {
 .details-container {
   width: 45%;
   margin-left: 10px;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.2s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(100%);
+  transition: all 150ms ease-in 0s;
+}
+
+.details-panel {
+  overflow-y: auto;
+  position: absolute;
+  background-color: white;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 999;
+  padding: 15px;
+  width: 100%;
+}
+
+.icon-button {
+  height: 30px;
+}
+
+@media (min-width: 600px) {
+  #background-video {
+    height: 250px;
+  }
+
+  .content-wrapper {
+    padding: 15px;
+  }
+
+  .data-table-container {
+    width: 55%;
+  }
+}
+
+@media (min-width: 1025px) {
+  #background-video {
+    height: 200px;
+  }
+  .details-panel {
+    position: relative;
+    background-color: white;
+    height: 100%;
+    padding: 15px;
+    width: 100%;
+  }
 }
 </style>
