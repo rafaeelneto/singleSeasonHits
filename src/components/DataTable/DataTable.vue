@@ -61,16 +61,21 @@
       <tbody>
         <tr
           v-for="item in computedData"
-          :key="item"
+          :key="item.id"
           @click="onItemClick(item.id)"
+          :class="item.id === selectedItem?.id ? 'selected-row' : ''"
         >
-          <td v-for="(field, fieldName) in visibleFilters" :key="fieldName">
+          <td
+            v-for="(field, fieldName) in visibleFilters"
+            :key="item.id + fieldName"
+          >
             {{ item[fieldName] }}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <section class="data-count">Items count: {{ computedData.length }}</section>
 </template>
 
 <script>
@@ -79,9 +84,6 @@ import RangeFilterDialog from '../FilterDialogs/RangeFilter.vue';
 export default {
   name: 'DataTable',
   components: { RangeFilterDialog },
-  data() {
-    return {};
-  },
   props: {
     data: {
       type: Array,
@@ -150,29 +152,32 @@ export default {
 </script>
 
 <style scoped>
-.no-selected-msg {
+.no-selected-msg,
+.data-count {
   display: flex;
   width: 100%;
   margin: 10px;
   text-align: center;
-  justify-content: center;
   align-items: center;
   color: #535657;
 }
 
-.icon-button {
-  height: 30px;
-  width: 30px;
+.no-selected-msg {
+  justify-content: center;
+}
+
+.data-count {
+  text-align: left;
+  height: 10px;
 }
 
 .table-container {
-  height: 100%;
   overflow-y: auto;
   margin-top: 10px;
+  height: calc(100% - 70px);
 }
 
 table {
-  border-collapse: collapse; /* make the table borders collapse to each other */
   width: 100%;
   text-align: center;
 }
@@ -204,6 +209,7 @@ th .head-title-container {
   display: block;
   margin: auto 0;
 }
+
 thead th {
   font-family: Lato;
   font-weight: bold;
@@ -228,11 +234,6 @@ thead th:hover {
   margin-right: 3px;
 }
 
-.text-property {
-  display: block;
-  margin: auto 0;
-}
-
 .head-filter-container {
   padding: 10px;
   background-color: #e8e8e8;
@@ -244,17 +245,20 @@ thead th:hover {
 
 tbody tr {
   border-bottom: 1px solid #f2f2f2;
+  font-family: Lato;
+  font-size: 15px;
+  color: #183540;
+  line-height: 1.4;
 }
 
 tbody tr:hover {
   background-color: #c8c8c8;
 }
 
-tbody td {
-  font-family: Lato;
-  font-size: 15px;
-  color: #33333c;
-  line-height: 1.4;
+tbody tr.selected-row {
+  color: #011640;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 tbody tr td {
@@ -265,6 +269,10 @@ tbody tr td {
 @media (min-width: 1025px) {
   .no-selected-msg {
     display: none;
+  }
+
+  .table-container {
+    height: calc(100% - 50px);
   }
 }
 </style>

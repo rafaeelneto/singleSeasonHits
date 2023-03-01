@@ -63,11 +63,11 @@ export default {
 }
 
 .player-name {
-  font-size: 48px;
-  overflow-wrap: break-word;
+  width: 100%;
   font-size: 36px;
   font-weight: 800;
-  width: 100%;
+  font-family: Chivo;
+  overflow-wrap: break-word;
   white-space: normal;
 }
 
@@ -77,7 +77,8 @@ export default {
 }
 
 .section-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 
 .stat-section {
